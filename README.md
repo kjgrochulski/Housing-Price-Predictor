@@ -1,6 +1,8 @@
 Melbourne House Price Prediction
-![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python) ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.x-orange) ![XGBoost](https://img.shields.io/badge/XGBoost-enabled-green) ![LightGBM](https://img.shields.io/badge/LightGBM-enabled-yellowgreen)
+---
+Libraries Used
 
+`pandas` · `numpy` · `scikit-learn` · `XGBoost` · `LightGBM` · `matplotlib` · `seaborn` · `missingno` · `scipy`
 Predicting residential property prices in Melbourne, Australia by comparing 7 regression models. The best model, **LightGBM**, achieved an **R² of 0.94** on the test set.
 
 ---
@@ -67,9 +69,3 @@ pip install -r requirements.txt
 # 4. Open the notebook
 jupyter notebook melbourne.ipynb
 ```
-
----
-
-Libraries Used
-
-`pandas` · `numpy` · `scikit-learn` · `XGBoost` · `LightGBM` · `matplotlib` · `seaborn` · `missingno` · `scipy`
