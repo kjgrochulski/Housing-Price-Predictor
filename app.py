@@ -168,7 +168,7 @@ if st.button("💰 Predict Price", type="primary", use_container_width=True, dis
                 "Price_Category": "Medium"  # placeholder — see note below
             }])
 
-            prediction = model.predict(input_df)[0]
+            prediction = np.expm1(model.predict(input_df)[0])
 
             st.markdown(f"""
                 <div class="result-box">
