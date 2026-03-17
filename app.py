@@ -10,7 +10,7 @@ import time
 # ── Config ──────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Melbourne House Price Predictor",
-    page_icon="🏠",
+    page_icon="",
     layout="centered"
 )
 
@@ -49,18 +49,19 @@ st.markdown("""
             padding: 12px 16px;
             border-radius: 4px;
             font-size: 0.9rem;
+            color: #78350f;
         }
     </style>
 """, unsafe_allow_html=True)
 
 # ── Header ────────────────────────────────────────────────────────────────────
-st.title("🏠 Melbourne House Price Predictor")
+st.title("Melbourne House Price Predictor")
 st.caption("Enter a Melbourne address and property details to get an estimated sale price.")
 st.divider()
 
 # ── Address Input ─────────────────────────────────────────────────────────────
 address = st.text_input(
-    "📍 Property Address",
+    "Property Address",
     placeholder="e.g. 45 Collins St, Melbourne VIC 3000"
 )
 
@@ -70,7 +71,7 @@ if address:
     with st.spinner("Looking up address..."):
         try:
             geolocator = Nominatim(user_agent="melb_house_predictor_v1")
-            time.sleep(1)  # Nominatim rate limit
+            time.sleep(1)                                                   # Nominatim rate limit
             location = geolocator.geocode(
                 address + ", Victoria, Australia",
                 addressdetails=True
@@ -114,7 +115,7 @@ with col1:
     prop_type = st.selectbox(
         "Property Type",
         options=["h", "t", "u"],
-        format_func=lambda x: {"h": "🏠 House", "t": "🏘 Townhouse", "u": "🏢 Unit"}[x]
+        format_func=lambda x: {"h": "House", "t": "Townhouse", "u": "Unit"}[x]
     )
     building_area = st.number_input("Building Area (m²)", min_value=10, max_value=1000, value=150)
     year_built = st.number_input("Year Built", min_value=1800, max_value=2025, value=1990)
@@ -124,7 +125,7 @@ with col2:
     total_rooms = st.number_input(
         "Total Internal Rooms",
         min_value=1, max_value=20, value=5,
-        help="Bedrooms + bathrooms + other rooms"
+        help="Bedrooms + bathrooms + other"
     )
     propertycount = st.number_input(
         "Properties in Suburb (approx)",
@@ -147,7 +148,7 @@ st.divider()
 
 predict_ready = lat is not None or (suburb_input and postcode)
 
-if st.button("💰 Predict Price", type="primary", use_container_width=True, disabled=not predict_ready):
+if st.button("Predict Price", type="primary", use_container_width=True, disabled=not predict_ready):
     if lat is None:
         st.warning("Please enter a valid address first.")
     else:
@@ -165,7 +166,7 @@ if st.button("💰 Predict Price", type="primary", use_container_width=True, dis
                 "Longtitude": lon,
                 "Propertycount": propertycount,
                 "Total_Internal_Rooms": total_rooms,
-                "Price_Category": "Medium"  # placeholder — see note below
+                "Price_Category": "Medium"                  # placeholder
             }])
 
             prediction = np.expm1(model.predict(input_df)[0])
