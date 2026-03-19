@@ -11,3 +11,4 @@ jupyter
 streamlit>=1.32.0
 joblib
 geopy
+shap
