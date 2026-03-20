@@ -133,7 +133,6 @@ with col1:
         # format_func=lambda x: {"h": "House", "t": "Townhouse", "u": "Unit"}[x]
     )
     building_area = st.number_input("Building Area (m²)", min_value=10, max_value=1000, value=150)
-    year_built = st.number_input("Year Built", min_value=1800, max_value=2025, value=1990)
     landsize = st.number_input("Land Size (m²)", min_value=0, max_value=100000, value=500)
 
 with col2:
@@ -142,21 +141,25 @@ with col2:
         min_value=1, max_value=20, value=5,
         help="Bedrooms + bathrooms + other"
     )
-    propertycount = st.number_input(
-        "Properties in Suburb (approx)",
-        min_value=1, max_value=50000, value=5000,
-        help="Rough number of properties in the suburb. Check realestate.com.au if unsure."
-    )
+    year_built = st.number_input("Year Built", min_value=1800, max_value=2025, value=1990)
+    
+    # propertycount = st.number_input(
+    #     "Properties in Suburb (approx)",
+    #     min_value=1, max_value=50000, value=5000,
+    #     help="Rough number of properties in the suburb. Check realestate.com.au if unsure."
+    # )
+    propertycount = 5000
+
     suburb_input = st.text_input(
         "Suburb (auto-filled)",
         value=suburb,
         help="Auto-filled from address. Edit if incorrect."
     )
-    council_input = st.text_input(
-        "Council Area (auto-filled)",
-        value=council,
-        help="Auto-filled from address. Edit if incorrect."
-    )
+    # council_input = st.text_input(
+    #     "Council Area (auto-filled)",
+    #     value=council,
+    #     help="Auto-filled from address. Edit if incorrect."
+    # )
 
 # ── Predict ───────────────────────────────────────────────────────────────────
 st.divider()
@@ -237,12 +240,12 @@ if st.button("Predict Price", type="primary", use_container_width=True, disabled
                 st.markdown(f"""
                     <div style="
                         display:flex;
-                        color: "black";
                         justify-content:space-between;
                         padding:8px 12px;
                         margin-bottom:6px;
                         border-radius:6px;
                         background:#f9fafb;
+                        color: "black";
                     ">
                         <span>{sign} {row['feature']}</span>
                         <span style="color:{color}; font-weight:600;">
@@ -251,16 +254,16 @@ if st.button("Predict Price", type="primary", use_container_width=True, disabled
                     </div>
                 """, unsafe_allow_html=True)
 
-            st.write("Input columns:", input_df.columns.tolist())
-            st.write("Model expects:", model.named_steps['preprocessor'].feature_names_in_)
-            st.write("Input columns:", input_df)
+            # st.write("Input columns:", input_df.columns.tolist())
+            # st.write("Model expects:", model.named_steps['preprocessor'].feature_names_in_)
+            # st.write("Input columns:", input_df)
 
-            st.markdown("""
-                <div class="warning-box" style="margin-top:16px;">
-                    ⚠️ <strong>Note:</strong> This is an estimate for educational purposes only.
-                    Actual property values depend on many factors not captured in this model.
-                </div>
-            """, unsafe_allow_html=True)
+            # st.markdown("""
+            #     <div class="warning-box" style="margin-top:16px;">
+            #         <strong>Note:</strong> This is an estimate for educational purposes only.
+            #         Actual property values depend on many factors not captured in this model.
+            #     </div>
+            # """, unsafe_allow_html=True)
 
         except Exception as e:
             st.error(f"Prediction error: {e}")
