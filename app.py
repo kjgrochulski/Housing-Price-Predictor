@@ -195,10 +195,18 @@ if st.button("Predict Price", type="primary", use_container_width=True, disabled
             # Compute SHAP values
             shap_values = explainer.shap_values(X_processed)
 
-            # Convert to dataframe
+           # Convert SHAP values from log space → price space
+            prediction_log = model.predict(input_df)[0]
+            prediction_price = np.expm1(prediction_log)
+
+            shap_impacts = shap_values[0]
+
+            # convert each feature impact to price contribution
+            price_impacts = np.expm1(prediction_log + shap_impacts) - prediction_price
+
             shap_df = pd.DataFrame({
                 "feature": feature_names,
-                "impact": shap_values[0]
+                "impact": price_impacts
             })
 
             # Sort by importance
@@ -238,7 +246,7 @@ if st.button("Predict Price", type="primary", use_container_width=True, disabled
                     ">
                         <span>{sign} {row['feature']}</span>
                         <span style="color:{color}; font-weight:600;">
-                            {sign}${abs(row['impact'])}
+                            {sign}${abs(row['impact']):,.0f}
                         </span>
                     </div>
                 """, unsafe_allow_html=True)
