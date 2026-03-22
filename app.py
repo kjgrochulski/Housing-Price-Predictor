@@ -40,7 +40,7 @@ explainer = load_explainer(model)
 # ── Styling ───────────────────────────────────────────────────────────────────
 st.markdown("""
     <style>
-        .main { max-width: 720px; margin: auto; }
+        .main { max-width: 920px; margin: auto; }
         .result-box {
             background: #f0fdf4;
             border: 2px solid #22c55e;
@@ -133,13 +133,13 @@ with col1:
         # format_func=lambda x: {"h": "House", "t": "Townhouse", "u": "Unit"}[x]
     )
     building_area = st.number_input("Building Area (m²)", min_value=10, max_value=1000, value=150)
-    landsize = st.number_input("Land Size (m²)", min_value=0, max_value=100000, value=500)
+    landsize = st.number_input("Plot Size (m²)", min_value=0, max_value=100000, value=500)
 
 with col2:
     total_rooms = st.number_input(
-        "Total Internal Rooms",
+        "Bed + Bath",
         min_value=1, max_value=20, value=5,
-        help="Bedrooms + bathrooms + other"
+        # help="Bedrooms + bathrooms + other"
     )
     year_built = st.number_input("Year Built", min_value=1800, max_value=2025, value=1990)
     
