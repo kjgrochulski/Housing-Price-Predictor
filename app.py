@@ -42,7 +42,7 @@ explainer = load_explainer(model)
 
 st.markdown("""
     <style>
-        .main { max-width: 1400px; margin: auto; }
+        .main { max-width: 400px; margin: auto; }
         .result-box {
             background: #f0fdf4;
             border: 2px solid #22c55e;
