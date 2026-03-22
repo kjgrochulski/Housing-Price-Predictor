@@ -46,7 +46,7 @@ st.markdown("""
         /* ── Fonts ── */
         html, body, [class*="css"], .stMarkdown, .stTextInput, .stSelectbox,
         .stNumberInput, .stButton, label, p, div {
-            font-family: 'DM Sans', sans-serif !important;
+            font-family: 'DM Serif Display', serif !important;
         }
         h1, h2, h3 {
             font-family: 'DM Serif Display', serif !important;
@@ -76,7 +76,7 @@ st.markdown("""
             color: #78350f;
         }
         .section-label {
-            font-family: 'DM Sans', sans-serif !important;
+            font-family: 'DM Serif Display', serif !important;
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -145,7 +145,7 @@ if address:
                 council = raw.get("county", raw.get("state_district", ""))
                 distance = round(geodesic(MELBOURNE_CBD, (lat, lon)).km, 2)
 
-                with right_col:
+                with left_col:
                     st.success(f"Found: **{suburb}**, {postcode}")
                     c1, c2, c3, c4 = st.columns(4)
                     c1.metric("CBD Distance", f"{distance} km")
@@ -153,10 +153,10 @@ if address:
                     c3.metric("Lon", round(lon, 4))
                     c4.metric("Postcode", postcode)
             else:
-                with right_col:
+                with left_col:
                     st.error("Address not found. Try adding suburb and state, e.g. 'Richmond VIC'.")
         except Exception as e:
-            with right_col:
+            with left_col:
                 st.error(f"Geocoding error: {e}")
 
 
