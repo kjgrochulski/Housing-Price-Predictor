@@ -125,6 +125,9 @@ PROPERTYCOUNT_DEFAULT = 6555  # fallback to median
 
 st.markdown("""
     <style>
+        html, body, [class*="css"]  {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+        }
         .main { max-width: 400px; margin: auto; }
         .result-box {
             background: #f0fdf4;
