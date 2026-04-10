@@ -31,12 +31,95 @@ model, feature_cols = load_model()
 
 @st.cache_resource
 def load_explainer(_model):
-    # get the trained model inside pipeline
     regressor = _model.named_steps["regressor"]
     return shap.TreeExplainer(regressor)
 
 explainer = load_explainer(model)
 
+SUBURB_PROPERTYCOUNT = {
+    "Abbotsford": 4019, "Aberfeldie": 1543, "Airport West": 3464, "Albanvale": 1899,
+    "Albert Park": 3280, "Albion": 2185, "Alphington": 2211, "Altona": 5301,
+    "Altona Meadows": 7630, "Altona North": 5132, "Ardeer": 1281, "Armadale": 4836,
+    "Ascot Vale": 6567, "Ashburton": 3052, "Ashwood": 2894, "Aspendale": 2824,
+    "Aspendale Gardens": 2243, "Attwood": 1130, "Avondale Heights": 4502,
+    "Bacchus Marsh": 2871, "Balaclava": 2952, "Balwyn": 5682, "Balwyn North": 7809,
+    "Bayswater": 5030, "Bayswater North": 3598, "Beaconsfield": 2332,
+    "Beaumaris": 5366, "Bellfield": 790, "Bentleigh": 6795, "Bentleigh East": 10969,
+    "Berwick": 17093, "Black Rock": 2866, "Blackburn": 5713, "Blackburn North": 2867,
+    "Blackburn South": 4387, "Bonbeach": 2887, "Boronia": 9704, "Box Hill": 4605,
+    "Braybrook": 3589, "Briar Hill": 1390, "Brighton": 10579, "Brighton East": 6938,
+    "Broadmeadows": 4294, "Brooklyn": 962, "Brunswick": 11918, "Brunswick East": 5533,
+    "Brunswick West": 7082, "Bulleen": 4480, "Bullengarook": 249, "Bundoora": 10175,
+    "Burnley": 438, "Burnside": 1607, "Burnside Heights": 1686, "Burwood": 5678,
+    "Burwood East": 4048, "Cairnlea": 2674, "Camberwell": 8920, "Campbellfield": 1889,
+    "Canterbury": 3265, "Carlton": 6786, "Carlton North": 3106, "Carnegie": 7822,
+    "Caroline Springs": 7719, "Carrum": 1989, "Carrum Downs": 8060, "Caulfield": 2379,
+    "Caulfield East": 608, "Caulfield North": 6923, "Caulfield South": 5051,
+    "Chadstone": 3582, "Chelsea": 3906, "Chelsea Heights": 2076, "Cheltenham": 9758,
+    "Chirnside Park": 3789, "Clarinda": 2727, "Clayton": 5837, "Clayton South": 4734,
+    "Clifton Hill": 2954, "Coburg": 11204, "Coburg North": 3445, "Collingwood": 4553,
+    "Coolaroo": 1124, "Craigieburn": 15510, "Cranbourne": 7680, "Cranbourne North": 6464,
+    "Cremorne": 1123, "Croydon": 11925, "Croydon Hills": 1705, "Croydon North": 2985,
+    "Croydon South": 1863, "Dallas": 2246, "Dandenong": 10894, "Dandenong North": 8322,
+    "Deepdene": 892, "Deer Park": 6388, "Delahey": 2898, "Derrimut": 2276,
+    "Diamond Creek": 4258, "Diggers Rest": 1184, "Dingley Village": 3940,
+    "Docklands": 4707, "Doncaster": 9028, "Doncaster East": 10999, "Donvale": 4790,
+    "Doreen": 7254, "Doveton": 3533, "Eaglemont": 1651, "East Melbourne": 3040,
+    "Edithvale": 2546, "Elsternwick": 4898, "Eltham": 6990, "Eltham North": 2346,
+    "Elwood": 8989, "Endeavour Hills": 8443, "Epping": 10926, "Essendon": 9264,
+    "Essendon North": 1308, "Essendon West": 588, "Fairfield": 2970, "Fawkner": 5070,
+    "Ferntree Gully": 10788, "Fitzroy": 5825, "Fitzroy North": 6244, "Flemington": 3593,
+    "Footscray": 7570, "Forest Hill": 4385, "Frankston": 17055, "Frankston North": 2500,
+    "Frankston South": 7566, "Gardenvale": 534, "Gisborne": 3376, "Gladstone Park": 3285,
+    "Glen Huntly": 2403, "Glen Iris": 10412, "Glen Waverley": 15321, "Glenroy": 8870,
+    "Gowanbrae": 1071, "Greensborough": 8524, "Greenvale": 4864, "Hadfield": 2606,
+    "Hallam": 3728, "Hampton": 5454, "Hampton East": 2356, "Hampton Park": 8256,
+    "Hawthorn": 11308, "Hawthorn East": 6482, "Healesville": 3307, "Heathmont": 3794,
+    "Heidelberg": 2890, "Heidelberg Heights": 2947, "Heidelberg West": 2674,
+    "Highett": 4794, "Hillside": 5556, "Hoppers Crossing": 13830, "Hughesdale": 3145,
+    "Huntingdale": 768, "Hurstbridge": 1345, "Ivanhoe": 5549, "Ivanhoe East": 1554,
+    "Jacana": 851, "Kealba": 1202, "Keilor": 2339, "Keilor Downs": 3656,
+    "Keilor East": 5629, "Keilor Lodge": 570, "Keilor Park": 1119, "Kensington": 5263,
+    "Kew": 10331, "Kew East": 2671, "Keysborough": 8459, "Kilsyth": 4654,
+    "Kings Park": 2878, "Kingsbury": 1414, "Kingsville": 1808, "Knoxfield": 2949,
+    "Kooyong": 394, "Kurunjang": 3553, "Lalor": 8279, "Langwarrin": 8743,
+    "Lower Plenty": 1624, "Maidstone": 3873, "Malvern": 4675, "Malvern East": 8801,
+    "Maribyrnong": 4918, "McKinnon": 2397, "Meadow Heights": 4704, "Melbourne": 17496,
+    "Melton": 3600, "Melton South": 4718, "Melton West": 6065, "Mentone": 6162,
+    "Mernda": 5812, "Middle Park": 2019, "Mill Park": 10529, "Mitcham": 6871,
+    "Monbulk": 1424, "Mont Albert": 2079, "Montmorency": 3891, "Montrose": 2493,
+    "Moonee Ponds": 6232, "Moorabbin": 2555, "Mooroolbark": 8280, "Mordialloc": 3650,
+    "Mount Evelyn": 3532, "Mount Waverley": 13366, "Mulgrave": 7113, "Murrumbeena": 4442,
+    "Narre Warren": 9376, "New Gisborne": 849, "Newport": 5498, "Niddrie": 2291,
+    "Noble Park": 11806, "North Melbourne": 6821, "North Warrandyte": 1058,
+    "Northcote": 11364, "Notting Hill": 902, "Nunawading": 4973, "Oak Park": 2651,
+    "Oakleigh": 3224, "Oakleigh East": 2547, "Oakleigh South": 3692, "Officer": 2768,
+    "Ormond": 3578, "Pakenham": 17384, "Parkdale": 5087, "Parkville": 2309,
+    "Pascoe Vale": 7485, "Point Cook": 15542, "Port Melbourne": 8648, "Prahran": 7717,
+    "Preston": 14577, "Princes Hill": 1008, "Reservoir": 21650, "Richmond": 14949,
+    "Riddells Creek": 1475, "Ringwood": 7785, "Ringwood East": 4407,
+    "Ringwood North": 3619, "Ripponlea": 821, "Rosanna": 3540, "Rowville": 11667,
+    "Roxburgh Park": 5833, "Sandhurst": 1721, "Sandringham": 4497, "Scoresby": 2206,
+    "Seabrook": 1793, "Seaford": 8077, "Seaholme": 852, "Seddon": 2417, "Silvan": 457,
+    "Skye": 2756, "South Kingsville": 984, "South Melbourne": 5943, "South Morang": 7969,
+    "South Yarra": 14887, "Southbank": 8400, "Spotswood": 1223, "Springvale": 7412,
+    "Springvale South": 4054, "St Albans": 14042, "St Helena": 915, "St Kilda": 13240,
+    "Strathmore": 3284, "Strathmore Heights": 389, "Sunbury": 14092, "Sunshine": 3755,
+    "Sunshine North": 4217, "Sunshine West": 6763, "Surrey Hills": 5457,
+    "Sydenham": 3640, "Tarneit": 10160, "Taylors Hill": 4242, "Taylors Lakes": 5336,
+    "Templestowe": 6202, "Templestowe Lower": 5420, "The Basin": 1690,
+    "Thomastown": 7955, "Thornbury": 8870, "Toorak": 7217, "Travancore": 1052,
+    "Truganina": 5811, "Tullamarine": 3296, "Vermont": 4181, "Vermont South": 4280,
+    "Viewbank": 2698, "Wallan": 3988, "Wantirna": 5424, "Wantirna South": 7082,
+    "Warrandyte": 2003, "Waterways": 709, "Watsonia": 2329, "Watsonia North": 1442,
+    "Werribee": 16166, "West Footscray": 5058, "West Melbourne": 2230,
+    "Westmeadows": 2474, "Wheelers Hill": 7392, "Whittlesea": 2170,
+    "Williams Landing": 1999, "Williamstown": 6380, "Williamstown North": 802,
+    "Windsor": 4380, "Wollert": 2940, "Wyndham Vale": 5262, "Yallambie": 1369,
+    "Yarra Glen": 1160, "Yarraville": 6543,
+}
+PROPERTYCOUNT_DEFAULT = 6555  # fallback to median
+ 
 
 # ── Styling ───────────────────────────────────────────────────────────────────
 
@@ -151,7 +234,7 @@ with col2:
     #     min_value=1, max_value=50000, value=5000,
     #     help="Rough number of properties in the suburb. Check realestate.com.au if unsure."
     # )
-    propertycount = 5000
+    propertycount = SUBURB_PROPERTYCOUNT.get(suburb_input or suburb, PROPERTYCOUNT_DEFAULT)
 
     suburb_input = st.text_input(
         "Suburb (auto-filled)",
