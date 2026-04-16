@@ -151,6 +151,8 @@ st.markdown("""
         button.step-up { display: none !important; }
         button.step-down { display: none !important; }
             
+        div[data-baseweb="input"] { border-radius: 6px !important; }
+            
         .result-box {
             background: #f0fdf4;
             border: 2px solid #22c55e;
