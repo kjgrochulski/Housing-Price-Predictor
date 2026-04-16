@@ -11,9 +11,9 @@ A machine learning web app that estimates residential property sale prices in Me
 
 ## What It Does
 
-1. You enter a Melbourne street address — the app geocodes it via OpenStreetMap Nominatim to extract latitude, longitude, suburb, postcode, and distance from the CBD.
-2. You fill in property details: type, bedrooms, bathrooms, car spaces, and plot size.
-3. A LightGBM model predicts a sale price, and SHAP values explain which factors pushed the estimate up or down.
+1. User enters a Melbourne street address, the app geocodes  via OpenStreetMap Nominatim to extract latitude, longitude, suburb, postcode, and distance from the Melbourne Central Business District (CBD).
+2. Users fill other parameters: property type, bedrooms, bathrooms, car spaces, and plot size.
+3. LightGBM model predicts a sale price, and SHAP values explain which features pushed the estimate and by how much.
 
 ---
 
