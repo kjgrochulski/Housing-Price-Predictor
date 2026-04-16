@@ -30,7 +30,7 @@ A machine learning web app that estimates residential property sale prices in Me
 | **Test MAE** | ~$155,000 (approx. 17% of median sale price) |
 | **Cross-validated R²** | 0.85 (5-fold) |
 
-The model was selected after benchmarking against XGBoost, Gradient Boosting, Random Forest, Extra Trees, Decision Tree, and ElasticNet. LightGBM and XGBoost performed similarly; LightGBM was chosen for deployment.
+The model was selected after benchmarking against XGBoost, Gradient Boosting, Random Forest, Extra Trees, Decision Tree, and ElasticNet. LightGBM and XGBoost performed very similarly; LightGBM was chosen for deployment.
 
 ### Features Used
 
