@@ -40,8 +40,8 @@ A machine learning web app that estimates residential property sale prices in Me
 
 The model was selected after benchmarking against XGBoost, Gradient Boosting, Random Forest, Extra Trees, Decision Tree, and ElasticNet. LightGBM and XGBoost performed very similarly; LightGBM was chosen for deployment.
 
-##Note
-During testing phase, the number of car spaces was often not publicly available for many properties, and the current model would be skewed slightly in the case that the user defaults the value to 0 or leaves it at 1. I instead opted to change the input box to allow a None state, so if the user leaves it blank, it will pass np.nan into input_df for the Car column instead of an integer. In this case, LightGBM will treat it as a true "Unknown" rather than "Zero parking."
+## Note
+During testing phase, the number of car spaces was often not publicly available for many properties, and the current model would be skewed slightly in the case that the user defaults the value to 0 or leaves it at 1. To resolve this, the input box was edited to allow a None state, so if the user leaves it blank, it will pass np.nan into input_df for the Car column instead of an integer. In this case, LightGBM will treat it as a true "Unknown" rather than "Zero parking."
 
 ### Features Used by Importance
 
