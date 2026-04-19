@@ -3,7 +3,7 @@
 **[Live App | House Price Predictor on Streamlit](https://kjg123-hub-housing-price-predictor-app-nro78q.streamlit.app/#property-details)**
 
 <p align="center">
-  <img width="500" height="340" alt="melb_app_ss1" src="https://github.com/user-attachments/assets/292a3696-d487-4ead-9989-dff2a464fd86" />
+  <img width="500" height="310" alt="melb_app_ss1" src="https://github.com/user-attachments/assets/292a3696-d487-4ead-9989-dff2a464fd86" />
 </p>
 
 A machine learning web app that estimates residential property sale prices in Melbourne, Australia. Users enter a street address and property details to get a price estimate with an explanation of the key factors driving it.
@@ -16,13 +16,13 @@ A machine learning web app that estimates residential property sale prices in Me
 2. Users fill other parameters: property type, bedrooms, bathrooms, car spaces, and plot size.
 
 <p align="center">
-  <img width="500" height="375" alt="image" src="https://github.com/user-attachments/assets/180e0fac-1d3d-4cbc-a1e9-e7737d753098" />
+  <img width="500" height="335" alt="image" src="https://github.com/user-attachments/assets/180e0fac-1d3d-4cbc-a1e9-e7737d753098" />
 </p>
 
 3. LightGBM model predicts a sale price, and SHAP values explain which features pushed the estimate and by how much.
 
 <p align="center">
-  <img width="500" height="375" alt="image" src="https://github.com/user-attachments/assets/2efd9cfe-9726-4430-acc2-3a7a00e1723e" />
+  <img width="500" height="335" alt="image" src="https://github.com/user-attachments/assets/2efd9cfe-9726-4430-acc2-3a7a00e1723e" />
 </p>
 
 ---
@@ -45,7 +45,7 @@ During testing phase, the number of car spaces was often not publicly available 
 
 ### Features Used by Importance
 
-<img width="800" height="685" alt="image" src="https://github.com/user-attachments/assets/03e14f40-9798-4783-938f-68ac395af3ac" />
+<img width="800" height="625" alt="image" src="https://github.com/user-attachments/assets/03e14f40-9798-4783-938f-68ac395af3ac" />
 
 
 Location signals (latitude, longitude, distance, suburb, postcode) collectively account for roughly 57% of the model's predictive weight.
