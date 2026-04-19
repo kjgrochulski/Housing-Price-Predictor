@@ -16,7 +16,7 @@ A machine learning web app that estimates residential property sale prices in Me
 2. Users fill other parameters: property type, bedrooms, bathrooms, car spaces, and plot size.
 
 <p align="center">
-  <img width="500" height="450" alt="image" src="https://github.com/user-attachments/assets/180e0fac-1d3d-4cbc-a1e9-e7737d753098" />
+  <img width="500" height="400" alt="image" src="https://github.com/user-attachments/assets/180e0fac-1d3d-4cbc-a1e9-e7737d753098" />
 </p>
 
 3. LightGBM model predicts a sale price, and SHAP values explain which features pushed the estimate and by how much.
